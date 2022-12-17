@@ -41,10 +41,14 @@ export default function FormComp() {
     console.log(JSON.stringify(Object.fromEntries(data)));
     fetch("/form/heart", {
       method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
       body: JSON.stringify(Object.fromEntries(data)),
     }).then((res) => {
-      console.log(res);
-      setResponse(res.json());
+      console.log(res.text());
+      setResponse(res.text());
     });
   }
   return (
