@@ -46,10 +46,11 @@ export default function FormComp() {
         // 'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: JSON.stringify(Object.fromEntries(data)),
-    }).then((res) => {
-      console.log(res.json());
-      setResponse(res.json()[0]);
-    });
+    })
+      .then((res) => res.text())
+      .then((text) => {
+        setResponse(text);
+      });
   }
   return (
     <>
