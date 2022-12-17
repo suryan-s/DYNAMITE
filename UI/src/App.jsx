@@ -1,7 +1,7 @@
-import { useState } from 'react'
-import Landing from "./components/composites/Landing"
-import Home from "./components/composites/Home"
-
+import { useState } from "react";
+import Landing from "./components/composites/Landing";
+import Home from "./components/composites/Home";
+import { AnimatePresence } from "framer-motion";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -12,19 +12,14 @@ import {
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path="/" element={<Landing />}/>
-      <Route path='/home' element={<Home/>}/>
-      </>
+      <Route path="/" element={<Landing />} />
+      <Route path="/home" element={<Home />} />
+    </>
   )
 );
 
-
-
 function App() {
-
-  return (
-    <RouterProvider router={router} />
-  )
+  return <RouterProvider router={router} />;
 }
 
-export default App
+export default App;

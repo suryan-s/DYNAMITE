@@ -2,6 +2,7 @@ import { Box, Heading, Text, Button, ButtonGroup } from "@chakra-ui/react";
 import { HiArrowRight, HiOutlineExternalLink } from "react-icons/hi";
 import { Link } from "react-router-dom";
 
+
 export default function Landing() {
   return (
     <Box

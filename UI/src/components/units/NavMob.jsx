@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Box,
   Button,
@@ -18,6 +19,7 @@ import {
   TooltipPlacement,
 } from "react-circular-menu";
 import Chat from "./Chat";
+import FormComp from "./FormComp";
 export default function NavBox() {
   return (
     <Box
@@ -36,6 +38,7 @@ export default function NavBox() {
 }
 function Content() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [component, setComponent] = useState(<div />);
 
   return (
     <>
@@ -46,13 +49,25 @@ function Content() {
         radius={5}
         rotationAngleInclusive={false}
       >
-        <CircleMenuItem tooltip="SympCheck" onClick={onOpen}>
+        <CircleMenuItem
+          tooltip="SympCheck"
+          onClick={(e) => {
+            setComponent(<Chat />);
+            onOpen(e);
+          }}
+        >
           <BsChatText fontSize="1.7em" />
         </CircleMenuItem>
         <CircleMenuItem tooltip="PoseTrack">
           <GrYoga fontSize="1.7em" />
         </CircleMenuItem>
-        <CircleMenuItem tooltip="DiagnosePro">
+        <CircleMenuItem
+          tooltip="DiagnosePro"
+          onClick={(e) => {
+            setComponent(<FormComp />);
+            onOpen(e);
+          }}
+        >
           <svg
             width="32px"
             height="32px"
@@ -68,7 +83,6 @@ function Content() {
             <rect
               id="_Transparent_Rectangle_"
               data-name="&lt;Transparent Rectangle&gt;"
-              class="cls-1"
               width="32"
               height="32"
               fill="none"
@@ -76,16 +90,19 @@ function Content() {
           </svg>
         </CircleMenuItem>
       </CircleMenu>
-      <Modal isOpen={isOpen} onClose={onClose} size="3xl">
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Chat />
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+      <ModalLayout isOpen={isOpen} onClose={onClose} component={component} />
     </>
+  );
+}
+function ModalLayout({ isOpen, onClose, component }) {
+  return (
+    <Modal isOpen={isOpen} onClose={onClose} size="3xl">
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader>Modal Title</ModalHeader>
+        <ModalCloseButton />
+        <ModalBody>{component}</ModalBody>
+      </ModalContent>
+    </Modal>
   );
 }

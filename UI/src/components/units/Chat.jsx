@@ -6,14 +6,14 @@ import {
   Button,
   IconButton,
 } from "@chakra-ui/react";
-import { IoSend } from "react-icons/io";
+import { IoSend } from "react-icons/io5";
 export default function Chat() {
   return (
     <Box>
       <Box
         height="50vh"
         bgColor="blackAlpha.400"
-        my="3rem"
+        my="2rem"
         rounded="lg"
         overflowY="scroll"
       >
@@ -32,10 +32,19 @@ export default function Chat() {
         <Recieved text="Hello!" />
         <Sent text="hi" />
       </Box>
-      <FormControl display="flex" gap="1rem">
-        <Input />
-        <IconButton type="submit"></IconButton>
-      </FormControl>
+
+      <form>
+        <FormControl display="flex" gap="1rem">
+          <Input />
+          <IconButton
+            type="submit"
+            icon={<IoSend />}
+            onClick={(e) => {
+              e.preventDefault();
+            }}
+          />
+        </FormControl>
+      </form>
     </Box>
   );
 }
