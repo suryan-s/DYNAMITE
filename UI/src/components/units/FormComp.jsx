@@ -47,8 +47,8 @@ export default function FormComp() {
       },
       body: JSON.stringify(Object.fromEntries(data)),
     }).then((res) => {
-      console.log(res.text());
-      setResponse(res.text());
+      console.log(res.json());
+      setResponse(res.json()[0]);
     });
   }
   return (

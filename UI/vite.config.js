@@ -7,24 +7,25 @@ export default defineConfig({
   build:{
     outDir:"built",
   },
-  plugins: [react(),
-    VitePWA({ registerType: 'autoUpdate',
-    includeAssets: ['favicon.svg', 'favicon.png'],
-    injectRegister: 'auto',
-    devOptions:{enabled:true},
-    manifest: {
-      name: 'Dynamite',
-      short_name: 'Dynamite',
-      description: 'Machine learning model app',
-      theme_color: '#ffffff',
-      icons: [
-        {
-          src: 'favicon.png',
-          sizes: '180x180',
-          type: 'image/png'
-        }
-      ]
-    }
-  })
+  plugins: [react()
+  //   ,
+  //   VitePWA({ registerType: 'autoUpdate',
+  //   includeAssets: ['favicon.svg', 'favicon.png'],
+  //   injectRegister: 'auto',
+  //   devOptions:{enabled:true},
+  //   manifest: {
+  //     name: 'Dynamite',
+  //     short_name: 'Dynamite',
+  //     description: 'Machine learning model app',
+  //     theme_color: '#ffffff',
+  //     icons: [
+  //       {
+  //         src: 'favicon.png',
+  //         sizes: '180x180',
+  //         type: 'image/png'
+  //       }
+  //     ]
+  //   }
+  // })
   ],
 })
