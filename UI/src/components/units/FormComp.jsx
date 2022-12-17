@@ -26,11 +26,45 @@ const fields = {
     "Number_of_vessels_fluro",
     "Thallium",
   ],
+  breast: [
+    "diagnosis",
+    "radius_mean",
+    "texture_mean",
+    "perimeter_mean",
+    "area_mean",
+    "smoothness_mean",
+    "compactness_mean",
+    "concavity_mean",
+    "concave points_mean",
+    "symmetry_mean",
+    "fractal_dimension_mean",
+    "radius_se",
+    "texture_se",
+    "perimeter_se",
+    "area_se",
+    "smoothness_se",
+    "compactness_se",
+    "concavity_se",
+    "concave points_se",
+    "symmetry_se",
+    "fractal_dimension_se",
+    "radius_worst",
+    "texture_worst",
+    "perimeter_worst",
+    "area_worst",
+    "smoothness_worst",
+    "compactness_worst",
+    "concavity_worst",
+    "concave points_worst",
+    "symmetry_worst",
+    "fractal_dimension_worst",
+  ],
 };
 
 export default function FormComp() {
   const [formItems, setFormItems] = useState([]);
   const [response, setResponse] = useState(null);
+  const [val, setVal] = useState(null);
   const formElement = useRef();
   function subForm() {
     const data = new FormData();
@@ -39,7 +73,7 @@ export default function FormComp() {
     });
     console.log(data);
     console.log(JSON.stringify(Object.fromEntries(data)));
-    fetch("/form/heart", {
+    fetch(`/form/${val}`, {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -57,11 +91,13 @@ export default function FormComp() {
       <Select
         placeholder="select option"
         onChange={(e) => {
+          setVal(e.target.value);
           setFormItems(fields[e.target.value]);
           console.log(e.target.value);
         }}
       >
         <option value="heart">Heart</option>
+        <option value="breast">Breast Cancer</option>
       </Select>
       <form ref={formElement}>
         {formItems.map((item, idx) => (
@@ -71,7 +107,11 @@ export default function FormComp() {
           </FormControl>
         ))}
       </form>
-      {formItems[1] && <Button onClick={subForm}>Submit</Button>}
+      {formItems[1] && (
+        <Button onClick={subForm} my="2rem">
+          Submit
+        </Button>
+      )}
       {response && (
         <Alert status="info" my="1rem">
           <AlertIcon />
