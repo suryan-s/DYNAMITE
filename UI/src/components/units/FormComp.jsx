@@ -30,10 +30,14 @@ export default function FormComp() {
   const [formItems, setFormItems] = useState([]);
   const formElement = useRef();
   function subForm() {
-    const data = new FormData(formElement.current);
+    const data = new FormData();
+    formItems.map((item) => {
+      data.append(item, document.querySelector(`input[name='${item}']`).value);
+    });
     console.log(data);
     fetch("/form/heart", {
       method: "post",
+      headers: { "Content-Type": "multipart/form-data" },
       body: data,
     }).then((res) => {
       console.log(res.json());
