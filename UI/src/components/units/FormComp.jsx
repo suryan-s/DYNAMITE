@@ -69,7 +69,17 @@ export default function FormComp() {
   function subForm() {
     const data = new FormData();
     formItems.map((item) => {
-      data.append(item, document.querySelector(`input[name='${item}']`).value);
+      if (item === "Sex") {
+        data.append(
+          item,
+          document.querySelector(`select[name='${item}']`).value
+        );
+      } else {
+        data.append(
+          item,
+          document.querySelector(`input[name='${item}']`).value
+        );
+      }
     });
     console.log(data);
     console.log(JSON.stringify(Object.fromEntries(data)));
@@ -99,13 +109,23 @@ export default function FormComp() {
         <option value="heart">Heart</option>
         <option value="breast">Breast Cancer</option>
       </Select>
-      <form ref={formElement}>
-        {formItems.map((item, idx) => (
-          <FormControl key={idx} px="1rem">
-            <FormLabel>{item}</FormLabel>
-            <Input name={item} type="text" />
-          </FormControl>
-        ))}
+      <form ref={formElement} style={{ textAlign: "center" }}>
+        {formItems.map((item, idx) => {
+          return item === "Sex" ? (
+            <FormControl key={idx} px="1rem" py="0.5rem">
+              <FormLabel>{item}</FormLabel>
+              <Select placeholder="Choose Gender:" name="Sex" py="" required>
+                <option value="0">Female</option>
+                <option value="1">Male</option>
+              </Select>
+            </FormControl>
+          ) : (
+            <FormControl key={idx} px="1rem">
+              <FormLabel>{item}</FormLabel>
+              <Input name={item} type="text" required />
+            </FormControl>
+          );
+        })}
       </form>
       {formItems[1] && (
         <Button onClick={subForm} my="2rem">
