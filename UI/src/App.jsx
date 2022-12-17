@@ -1,13 +1,25 @@
-import { useState } from 'react'
-import {Text,useColorMode} from "@chakra-ui/react"
-import Landing from "./components/composites/Landing"
-function App() {
+import { useState } from "react";
+import Landing from "./components/composites/Landing";
+import Home from "./components/composites/Home";
+import { AnimatePresence } from "framer-motion";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from "react-router-dom";
 
-  return (
-    <div className="App">
-      <Landing />
-    </div>
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <>
+      <Route path="/" element={<Landing />} />
+      <Route path="/home" element={<Home />} />
+    </>
   )
+);
+
+function App() {
+  return <RouterProvider router={router} />;
 }
 
-export default App
+export default App;
