@@ -30,7 +30,7 @@ export default function FormComp() {
   const [formItems, setFormItems] = useState([]);
   const formElement = useRef();
   function subForm() {
-    const data = new URLSearchParams(new FormData(formElement));
+    const data = new URLSearchParams(new FormData(formElement.current));
     fetch("/form/heart", {
       method: "post",
       body: data,
