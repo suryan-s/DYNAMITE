@@ -54,7 +54,7 @@ export default function FormComp() {
         {formItems.map((item, idx) => (
           <FormControl key={idx} px="1rem">
             <FormLabel>{item}</FormLabel>
-            <Input type="text" />
+            <Input name={item} type="text" />
           </FormControl>
         ))}
       </form>
