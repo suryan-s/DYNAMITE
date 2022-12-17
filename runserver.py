@@ -69,7 +69,7 @@ def predDisease(disease=str):
         # Age,Sex,Chest pain type,BP,Cholesterol,FBS over 120,EKG results,Max HR,Exercise angina,ST depression,Slope of ST,Number of vessels fluro,Thallium
         # result = loaded_model.score(x_test, y_test)
         param = [
-            "id","diagnosis","radius_mean","texture_mean","perimeter_mean",
+            "diagnosis","radius_mean","texture_mean","perimeter_mean",
             "area_mean","smoothness_mean","compactness_mean","concavity_mean",
             "concave points_mean","symmetry_mean","fractal_dimension_mean",
             "radius_se","texture_se","perimeter_se","area_se","smoothness_se",
@@ -78,22 +78,51 @@ def predDisease(disease=str):
             "area_worst","smoothness_worst","compactness_worst","concavity_worst",
             "concave points_worst","symmetry_worst","fractal_dimension_worst"
         ]
-        for i in range(len(param)):
-            print("req  : ",request.form.get('diagnosis'))
-            X.append(request.form.get(str(param[i])))
+        content_type = request.headers.get('Content-Type')
+        if (content_type == 'application/json'):
+            jsondata = request.json
+            for i in range(len(param)):
+                # print("req  : ",request.form.get('diagnosis'))
+                X.append(int(jsondata[str(param[i])]))
+            X = np.asarry(X)
+            X = X.reshape(1,-1)
+            result = loaded_model.predict(X)
+            new_res = ""
+            if result[0]==0:
+                new_res = "Malignant"
+            else:
+                new_res = "Benign"
+            send_res = json.dumps(new_res)
+            return Response(send_res, status = 200)
+    
+    elif disease == 'parkinson':
+        X = []
+        loaded_model = pickle.load(open(r'D:\PROJECT\DYNAMITE\SAVED_MODEL\parkinson_model.sav','rb'))
+        # Age,Sex,Chest pain type,BP,Cholesterol,FBS over 120,EKG results,Max HR,Exercise angina,ST depression,Slope of ST,Number of vessels fluro,Thallium
+        # result = loaded_model.score(x_test, y_test)
+        param = [
+            'MDVP:Fo(Hz)', 'MDVP:Fhi(Hz)', 'MDVP:Flo(Hz)', 'MDVP:Jitter(%)',
+            'MDVP:Jitter(Abs)', 'MDVP:RAP', 'MDVP:PPQ', 'Jitter:DDP',
+            'MDVP:Shimmer', 'MDVP:Shimmer(dB)', 'Shimmer:APQ3', 'Shimmer:APQ5',
+            'MDVP:APQ', 'Shimmer:DDA', 'NHR', 'HNR', 'RPDE', 'DFA',
+            'spread1', 'spread2', 'D2', 'PPE'
+       ]
+        content_type = request.headers.get('Content-Type')
+        if (content_type == 'application/json'):
+            jsondata = request.json
+            for i in range(len(param)):
+                # print("req  : ",request.form.get('diagnosis'))
+                X.append(int(jsondata[str(param[i])]))
         X = np.asarry(X)
         X = X.reshape(1,-1)
         result = loaded_model.predict(X)
         new_res = ""
         if result[0]==0:
-            new_res = "Malignant"
+            new_res = "Normal"
         else:
-            new_res = "Benign"
+            new_res = "Parkinson confirmed"
         send_res = json.dumps(new_res)
         return Response(send_res, status = 200)
-    
-    elif disease == '':
-        pass
     elif disease == '':
         pass
         
