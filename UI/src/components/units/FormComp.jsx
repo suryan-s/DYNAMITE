@@ -6,6 +6,8 @@ import {
   FormControl,
   FormLabel,
   Button,
+  Alert,
+  AlertIcon,
 } from "@chakra-ui/react";
 
 const fields = {
@@ -28,6 +30,7 @@ const fields = {
 
 export default function FormComp() {
   const [formItems, setFormItems] = useState([]);
+  const [response, setResponse] = useState(null);
   const formElement = useRef();
   function subForm() {
     const data = new FormData();
@@ -35,12 +38,13 @@ export default function FormComp() {
       data.append(item, document.querySelector(`input[name='${item}']`).value);
     });
     console.log(data);
+    console.log(JSON.stringify(Object.fromEntries(data)));
     fetch("/form/heart", {
       method: "post",
-      headers: { "Content-Type": "multipart/form-data" },
-      body: data,
+      body: JSON.stringify(Object.fromEntries(data)),
     }).then((res) => {
-      console.log(res.json());
+      console.log(res);
+      setResponse(res.json());
     });
   }
   return (
@@ -63,6 +67,12 @@ export default function FormComp() {
         ))}
       </form>
       {formItems[1] && <Button onClick={subForm}>Submit</Button>}
+      {response && (
+        <Alert status="info" my="1rem">
+          <AlertIcon />
+          {response}
+        </Alert>
+      )}
     </>
   );
 }

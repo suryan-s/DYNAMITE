@@ -1,7 +1,24 @@
-import { Box, Button, scaleFadeConfig } from "@chakra-ui/react";
+import { useState } from "react";
+import {
+  Box,
+  Button,
+  scaleFadeConfig,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { BsChatText } from "react-icons/bs";
 import { GrYoga } from "react-icons/gr";
+import Chat from "./Chat";
+import FormComp from "./FormComp";
 export default function NavDesk() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [component, setComponent] = useState(<div />);
   return (
     <Box
       position="fixed"
@@ -17,6 +34,10 @@ export default function NavDesk() {
         size="lg"
         padding="3em 3em"
         fontSize="1.3em"
+        onClick={(e) => {
+          setComponent(<Chat />);
+          onOpen(e);
+        }}
         leftIcon={
           <Box pr="0.5rem">
             <BsChatText fontSize="2.5em" style="" />
@@ -43,6 +64,10 @@ export default function NavDesk() {
         size="lg"
         padding="3em 3em"
         fontSize="1.3em"
+        onClick={(e) => {
+          setComponent(<FormComp />);
+          onOpen(e);
+        }}
         leftIcon={
           <Box pr="0.5rem">
             <svg
@@ -72,6 +97,19 @@ export default function NavDesk() {
       >
         {/* DiagnosePro */}
       </Button>
+      <ModalLayout isOpen={isOpen} onClose={onClose} component={component} />
     </Box>
+  );
+}
+function ModalLayout({ isOpen, onClose, component }) {
+  return (
+    <Modal isOpen={isOpen} onClose={onClose} size="3xl">
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader>Modal Title</ModalHeader>
+        <ModalCloseButton />
+        <ModalBody>{component}</ModalBody>
+      </ModalContent>
+    </Modal>
   );
 }
