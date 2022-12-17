@@ -15,3 +15,4 @@ https://www.kaggle.com/datasets/fedesoriano/hepatitis-c-dataset
 https://drive.google.com/file/d/1j4nMvXCeBYGcYd_EMiv8y6tnBj_wFWP4/view (dengue)
 
 https://www.kaggle.com/datasets/itachi9604/disease-symptom-description-dataset?select=dataset.csv
+https://www.kaggle.com/datasets/fedesoriano/stroke-prediction-dataset
