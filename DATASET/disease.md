@@ -11,3 +11,6 @@ https://www.kaggle.com/datasets/uciml/breast-cancer-wisconsin-data
 https://www.kaggle.com/code/ananthr1/parkinson-disease-detection-using-xgbooster/data
 https://www.kaggle.com/datasets/rishidamarla/heart-disease-prediction?select=Heart_Disease_Prediction.csv
 https://www.kaggle.com/datasets/yasserh/breast-cancer-dataset
+
+
+<https://www.kaggle.com/datasets/itachi9604/disease-symptom-description-dataset?select=dataset.csv>
