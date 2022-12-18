@@ -58,6 +58,14 @@ export default function Home() {
             `3. We trained a model using traditional Machine-Learning techniques to diagnose a disease from a valid report.`,
           ]}
         />
+        <Links
+          heading={"References"}
+          content={[
+            "https://www.kaggle.com/datasets/uciml/breast-cancer-wisconsin-data ",
+            "https://www.kaggle.com/code/ananthr1/parkinson-disease-detection-using-xgbooster/data",
+            "https://www.kaggle.com/datasets/rishidamarla/heart-disease-prediction",
+          ]}
+        />
       </Box>
       {variant ? <NavDesk /> : <NavMob />}
     </>
@@ -86,6 +94,31 @@ function Block2({ heading, content }) {
           </Text>
         );
       })}
+    </>
+  );
+}
+function Links({ heading, content }) {
+  return (
+    <>
+      <Heading size="xl" pb="1rem">
+        {heading}
+      </Heading>
+      <Box display="flex" flexDir="column">
+        {content.map((item) => {
+          return (
+            <a
+              style={{ color: "cyan" }}
+              href={item}
+              fontSize="sm"
+              py="0.5em"
+              maxW="100ch"
+              target="_blank"
+            >
+              {item}
+            </a>
+          );
+        })}
+      </Box>
     </>
   );
 }

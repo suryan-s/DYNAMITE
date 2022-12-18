@@ -43,7 +43,9 @@ export default function Landing() {
           px="2em"
           py="1.8em"
           rightIcon={<HiOutlineExternalLink />}
-          onClick={() => window.open("https://github.com/", "_blank")}
+          onClick={() =>
+            window.open("https://github.com/suryan-s/DYNAMITE", "_blank")
+          }
         >
           GitHub
         </Button>
