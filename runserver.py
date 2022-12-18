@@ -4,15 +4,95 @@ from os import environ
 import numpy as np
 import pandas as pd
 import pickle
+from flask_socketio import SocketIO
+import torch
+import time
+import cv2
 
 
 app = Flask(__name__,static_url_path="")
 CORS(app)
+app.config['SECRET_KEY'] = 'vnkdjnfjknfl1232#'
+socketio = SocketIO(app)
 
+
+class ObjectDetection:
+    
+    def __init__(self):
+        
+        self.model = self.load_model()
+        self.classes = self.model.names
+        self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
+        # self.device = 'cpu'
+        print("\n\nDevice Used:",self.device)
+
+
+
+    def load_model(self):
+                
+        model = torch.hub.load('Yolov5', 'custom', path=r'Yolov5\best2.pt', source='local',force_reload=False)
+        model.conf = 0.20 
+        model.max_det = 10
+        return model
+
+
+    def score_frame(self, frame):
+        
+        self.model.to(self.device)
+        frame = [frame]
+        results = self.model(frame)
+     
+        labels, cord = results.xyxyn[0][:, -1], results.xyxyn[0][:, :-1]
+        return labels, cord
+
+
+    def class_to_label(self, x):
+        
+        return self.classes[int(x)]
+
+
+    def plot_boxes(self, results, frame):
+        labels, cord = results
+        n = len(labels)
+        x_shape, y_shape = frame.shape[1], frame.shape[0]
+        for i in range(n):
+            row = cord[i]
+            if row[4] >= 0.2:
+                x1, y1, x2, y2 = int(row[0]*x_shape), int(row[1]*y_shape), int(row[2]*x_shape), int(row[3]*y_shape)
+                bgr = (0, 255, 0)
+                # roi = frame[y1:y2,x1:x2]
+                print(labels)
+                
+                cv2.rectangle(frame, (x1, y1), (x2, y2), bgr, 2)
+                cv2.putText(frame, self.class_to_label(labels[i]), (x1, y1), cv2.FONT_HERSHEY_SIMPLEX, 0.9, bgr, 2)
+
+        return frame
+
+
+detector = ObjectDetection()
+
+
+def live():
+    cam = cv2.VideoCapture(0)
+    while cam.isOpened():
+        success,input = cam.read()
+        label = detector.score_frame(input)
+        input = detector.plot_boxes(label, input)
+        ret, buffer = cv2.imencode(".png", input)
+        input = buffer.tobytes()
+        yield ( b"--input\r\n"
+                b"Content-Type: image/png\r\n\r\n" + input + b"\r\n"
+        )
 
 @app.route('/')
 def home():
     return render_template('index.html', status = 200)
+
+@app.route('/Emotion')
+def showEmotion():
+    return Response(
+        live(), mimetype="multipart/x-mixed-replace; boundary=input", status=200
+    )
 
 @app.route('/form/<disease>' , methods =["POST"])
 def predDisease(disease=str):
@@ -123,8 +203,6 @@ def predDisease(disease=str):
             new_res = "Parkinson confirmed"
         send_res = json.dumps(new_res)
         return Response(send_res, status = 200)
-    elif disease == '':
-        pass
         
 
 if __name__ == '__main__':
@@ -135,4 +213,4 @@ if __name__ == '__main__':
         PORT = 5000
     except OSError:
         PORT = 7000
-    app.run(HOST, PORT, debug=True)
+    socketio.run(HOST, PORT, debug=True)
