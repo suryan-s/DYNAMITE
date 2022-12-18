@@ -8,13 +8,39 @@ from flask_socketio import SocketIO
 import torch
 import time
 import cv2
-
+from chatterbot import ChatBot
+from chatterbot.trainers import ListTrainer
+from chatterbot.trainers import ChatterBotCorpusTrainer
 
 app = Flask(__name__,static_url_path="")
 CORS(app)
 app.config['SECRET_KEY'] = 'vnkdjnfjknfl1232#'
 socketio = SocketIO(app)
 
+bot = ChatBot(
+    'Thakudu',  
+    logic_adapters=[
+        'chatterbot.logic.BestMatch',
+        'chatterbot.logic.TimeLogicAdapter'],
+)
+trainer = ListTrainer(bot)
+
+trainer.train([
+    'Hi',
+    'Hello, how can i help you today?',
+    'hi, im not feeling well and i think i might have a cold',
+    'Im sorry to hear that. Can you tell me a little bit more about your symptoms? ',
+    'I have ',
+    'Could you elaborate your symptoms a bit more?',
+    'I have ',
+    'Do you have any skin rash?',
+    'Yes / No',
+    'Do you have body pain?',
+    'Yes / No',
+    'Have you lost any '
+    'Okay thanks for your analysis!',
+    'No Problem! Have a Good Day!'
+])
 
 class ObjectDetection:
     
@@ -93,6 +119,22 @@ def showEmotion():
     return Response(
         live(), mimetype="multipart/x-mixed-replace; boundary=input", status=200
     )
+    
+@app.route('/chat', method  = 'POST')
+def liveChat():
+    content_type = request.headers.get('Content-Type')
+    if (content_type == 'application/json'):
+        jsondata = request.json        
+        if len(jsondata['value'])>0:
+            x = jsondata['value']
+            x = np.asarray(x)
+            x = x.reshape(1,-1)
+            pass
+        response = bot.get_response(str(jsondata['user']))
+
+        print("Bot Response:", response)
+        return Response(response, status = 200)
+    
 
 @app.route('/form/<disease>' , methods =["POST"])
 def predDisease(disease=str):
