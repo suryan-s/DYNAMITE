@@ -12,7 +12,7 @@ export default function Landing() {
       justifyContent="center"
     >
       <Heading size="4xl" textAlign="center">
-        I'm a <strong>working</strong> Heading
+        I am <strong>HealthMate</strong>
       </Heading>
       <Text fontSize="lg" mx="auto" textAlign="center" my="2rem">
         Made for HACK'24 Machine Learning hackathon.

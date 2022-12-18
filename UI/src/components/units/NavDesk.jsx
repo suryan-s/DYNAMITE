@@ -48,7 +48,7 @@ export default function NavDesk() {
           </Box>
         }
       >
-        {/* SympCheck */}
+        SympCheck
       </Button>
       <Button
         colorScheme="telegram"
@@ -66,7 +66,7 @@ export default function NavDesk() {
           </Box>
         }
       >
-        {/* EmotionTrack */}
+        EmotionTrack
       </Button>
       <Button
         colorScheme="pink"
@@ -105,7 +105,7 @@ export default function NavDesk() {
           </Box>
         }
       >
-        {/* DiagnosePro */}
+        DiagnosePro
       </Button>
       <ModalLayout
         isOpen={isOpen}

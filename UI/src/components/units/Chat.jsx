@@ -9,7 +9,19 @@ import {
 import { useEffect, useState } from "react";
 import { IoSend } from "react-icons/io5";
 export default function Chat() {
-  const [chatarray, setChatarrray] = useState([]);
+  const [chatarray, setChatarrray] = useState([
+    <Sent text="Hi" />,
+    <Recieved text="Hey! How can I help you?" />,
+    <Sent text="hi, im not feeling well and i think i might have a cold" />,
+    <Recieved text="Im sorry to hear that. Can you tell me a little bit more about your symptoms?" />,
+    <Sent text="I have" />,
+    <Recieved text="Could you elaborate your symptoms a bit more?" />,
+    <Sent text="I have" />,
+    <Recieved text="Do you have any skin rash?" />,
+    <Sent text="No" />,
+    <Recieved text="Do you have body pain?" />,
+    <Sent text="No" />,
+  ]);
   let cachearray = [...chatarray];
   function sendUserData(data, value) {
     fetch("/chat", {
