@@ -6,8 +6,30 @@ import {
   Button,
   IconButton,
 } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { IoSend } from "react-icons/io5";
 export default function Chat() {
+  const [chatarray, setChatarrray] = useState([]);
+  let cachearray = [...chatarray];
+  function sendUserData(data, value) {
+    fetch("/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ user: data, value: value }),
+    })
+      .then((res) => res.json())
+      .then((val) => {
+        cachearray = [
+          ...chatarray,
+          <Sent text={data} />,
+          <Recieved text={val} />,
+        ];
+        setChatarrray(cachearray);
+      });
+  }
+  useEffect(() => {
+    sendUserData("hi");
+  }, []);
   return (
     <Box>
       <Box
@@ -17,20 +39,9 @@ export default function Chat() {
         rounded="lg"
         overflowY="scroll"
       >
-        <Recieved text="Hello!" />
-        <Recieved text="Hello!" />
-        <Sent text="hi" />
-        <Recieved text="Hello!" />
-        <Recieved text="Hello!" />
-        <Sent
-          text={`egenbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb`}
-        />
-        <Recieved text="Hello!" />
-        <Recieved text="Hello!" />
-        <Sent text="hi" />
-        <Recieved text="Hello!" />
-        <Recieved text="Hello!" />
-        <Sent text="hi" />
+        {chatarray.map((en) => {
+          return en;
+        })}
       </Box>
 
       <form>

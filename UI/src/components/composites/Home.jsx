@@ -42,7 +42,7 @@ export default function Home() {
         />
         <Block2
           content={[
-            "1. Identifying symptoms of a patient",
+            "1. Identifying symptoms of a patient using a chatbot",
             "2. Encouraging better mental health among people",
             "3. Disease diagnosis, given a patient's report",
           ]}
