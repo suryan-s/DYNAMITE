@@ -64,6 +64,7 @@ export default function Home() {
             "https://www.kaggle.com/datasets/uciml/breast-cancer-wisconsin-data ",
             "https://www.kaggle.com/code/ananthr1/parkinson-disease-detection-using-xgbooster/data",
             "https://www.kaggle.com/datasets/rishidamarla/heart-disease-prediction",
+            "https://www.kaggle.com/datasets/tom99763/affectnethq?select=labels.csv",
           ]}
         />
       </Box>
