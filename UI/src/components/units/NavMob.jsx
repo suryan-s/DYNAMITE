@@ -39,6 +39,7 @@ export default function NavBox() {
 function Content() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [component, setComponent] = useState(<div />);
+  const [title, setTitle] = useState("");
 
   return (
     <>
@@ -53,6 +54,7 @@ function Content() {
           tooltip="SympCheck"
           onClick={(e) => {
             setComponent(<Chat />);
+            setTitle("SympCheck");
             onOpen(e);
           }}
         >
@@ -65,6 +67,7 @@ function Content() {
           tooltip="DiagnosePro"
           onClick={(e) => {
             setComponent(<FormComp />);
+            setTitle("DiagnosePro");
             onOpen(e);
           }}
         >
@@ -90,16 +93,21 @@ function Content() {
           </svg>
         </CircleMenuItem>
       </CircleMenu>
-      <ModalLayout isOpen={isOpen} onClose={onClose} component={component} />
+      <ModalLayout
+        isOpen={isOpen}
+        onClose={onClose}
+        component={component}
+        title={title}
+      />
     </>
   );
 }
-function ModalLayout({ isOpen, onClose, component }) {
+function ModalLayout({ isOpen, onClose, component, title }) {
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="3xl">
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Modal Title</ModalHeader>
+        <ModalHeader>{title}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>{component}</ModalBody>
       </ModalContent>

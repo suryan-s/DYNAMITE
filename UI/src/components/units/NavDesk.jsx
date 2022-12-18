@@ -19,6 +19,7 @@ import FormComp from "./FormComp";
 export default function NavDesk() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [component, setComponent] = useState(<div />);
+  const [title, setTitle] = useState("");
   return (
     <Box
       position="fixed"
@@ -36,6 +37,7 @@ export default function NavDesk() {
         fontSize="1.3em"
         onClick={(e) => {
           setComponent(<Chat />);
+          setTitle("SympCheck");
           onOpen(e);
         }}
         leftIcon={
@@ -66,6 +68,7 @@ export default function NavDesk() {
         fontSize="1.3em"
         onClick={(e) => {
           setComponent(<FormComp />);
+          setTitle("DiagnosePro");
           onOpen(e);
         }}
         leftIcon={
@@ -97,16 +100,21 @@ export default function NavDesk() {
       >
         {/* DiagnosePro */}
       </Button>
-      <ModalLayout isOpen={isOpen} onClose={onClose} component={component} />
+      <ModalLayout
+        isOpen={isOpen}
+        onClose={onClose}
+        component={component}
+        title={title}
+      />
     </Box>
   );
 }
-function ModalLayout({ isOpen, onClose, component }) {
+function ModalLayout({ isOpen, onClose, component, title }) {
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="3xl">
       <ModalOverlay />
-      <ModalContent>
-        <ModalHeader>Modal Title</ModalHeader>
+      <ModalContent bgColor="" bgGradient="linear(to-br,gray.800 30%,#440000)">
+        <ModalHeader>{title}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>{component}</ModalBody>
       </ModalContent>

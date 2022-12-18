@@ -59,6 +59,30 @@ const fields = {
     "symmetry_worst",
     "fractal_dimension_worst",
   ],
+  parkinson: [
+    "Jitter:DDP",
+    "NHR",
+    "HNR",
+    "RPDE",
+    "DFA",
+    "spread1",
+    "spread2",
+    "D2",
+    "PPE",
+    "MDVP:Fo(Hz)",
+    "MDVP:Fhi(Hz)",
+    "MDVP:Flo(Hz)",
+    "MDVP:Jitter(%)",
+    "MDVP:Jitter(Abs)",
+    "MDVP:RAP",
+    "MDVP:PPQ",
+    "MDVP:Shimmer",
+    "MDVP:Shimmer(dB)",
+    "MDVP:APQ",
+    "Shimmer:APQ3",
+    "Shimmer:APQ5",
+    "Shimmer:DDA",
+  ],
 };
 
 export default function FormComp() {
@@ -108,6 +132,7 @@ export default function FormComp() {
       >
         <option value="heart">Heart</option>
         <option value="breast">Breast Cancer</option>
+        <option value="parkinson">Parkinsons</option>
       </Select>
       <form ref={formElement} style={{ textAlign: "center" }}>
         {formItems.map((item, idx) => {
@@ -120,10 +145,26 @@ export default function FormComp() {
               </Select>
             </FormControl>
           ) : (
-            <FormControl key={idx} px="1rem">
-              <FormLabel>{item}</FormLabel>
-              <Input name={item} type="text" required />
-            </FormControl>
+            <>
+              {item === "MDVP:Fo(Hz)" && (
+                <FormControl key={idx} px="1rem">
+                  <FormLabel py="1rem" fontSize="xl">
+                    MDVP
+                  </FormLabel>
+                </FormControl>
+              )}
+              {item === "Shimmer:APQ3" && (
+                <FormControl key={idx} px="1rem">
+                  <FormLabel fontSize="xl" py="1rem">
+                    Shimmer
+                  </FormLabel>
+                </FormControl>
+              )}
+              <FormControl key={idx} px="1rem">
+                <FormLabel>{item}</FormLabel>
+                <Input name={item} type="text" required />
+              </FormControl>
+            </>
           );
         })}
       </form>
