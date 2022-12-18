@@ -14,8 +14,10 @@ import {
 } from "@chakra-ui/react";
 import { BsChatText } from "react-icons/bs";
 import { GrYoga } from "react-icons/gr";
+import { RiEmotionHappyLine } from "react-icons/ri";
 import Chat from "./Chat";
 import FormComp from "./FormComp";
+import EmoTrack from "./EmoTrack";
 export default function NavDesk() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [component, setComponent] = useState(<div />);
@@ -53,13 +55,18 @@ export default function NavDesk() {
         size="lg"
         padding="3em 3em"
         fontSize="1.3em"
+        onClick={(e) => {
+          setComponent(<EmoTrack />);
+          setTitle("EmotionTrack");
+          onOpen(e);
+        }}
         leftIcon={
           <Box pr="0.5rem">
-            <GrYoga fontSize="2.5em" style="" />
+            <RiEmotionHappyLine fontSize="2.5em" style="" />
           </Box>
         }
       >
-        {/* PoseTrack */}
+        {/* EmotionTrack */}
       </Button>
       <Button
         colorScheme="pink"
@@ -111,7 +118,7 @@ export default function NavDesk() {
 }
 function ModalLayout({ isOpen, onClose, component, title }) {
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="3xl">
+    <Modal isOpen={isOpen} onClose={onClose} size="4xl">
       <ModalOverlay />
       <ModalContent bgColor="" bgGradient="linear(to-br,gray.800 30%,#440000)">
         <ModalHeader>{title}</ModalHeader>

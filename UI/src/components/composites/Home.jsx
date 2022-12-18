@@ -11,7 +11,8 @@ export default function Home() {
     <>
       <Box p="3rem">
         <Heading size="4xl">
-          I'm a <strong>working</strong> Heading
+          We The <strong>Dynamite</strong>
+          {/* <GiDynamite /> */}
         </Heading>
         <Text fontSize="lg" mx="auto" my="2rem">
           Made for HACK'24 Machine Learning hackathon.
@@ -19,22 +20,43 @@ export default function Home() {
         <Block
           heading="About"
           content={`
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi finibus ligula arcu, ut euismod magna consequat in. Suspendisse risus turpis, efficitur at vulputate ut, placerat eget dolor. Fusce non enim et nisi aliquet pellentesque id eget odio. Vivamus pulvinar tristique commodo. Nulla facilisis tempor dictum. Praesent eget volutpat neque. Vivamus auctor magna quis quam bibendum, in aliquam ante tempor.
-        Sed maximus, est at tincidunt ornare, massa eros faucibus metus, eu venenatis tortor justo hendrerit lacus. Vivamus sed iaculis eros. Praesent eu rutrum felis. Integer vitae est vitae enim elementum luctus ac eu leo. Integer in sollicitudin neque. Sed rhoncus nibh erat, quis mattis lacus convallis nec. Cras dictum, tellus a vestibulum ultricies, orci leo imperdiet quam, non eleifend nibh justo a nulla.
-        `}
+          Healthcare is a critical aspect of society that involves the provision of medical services to individuals in need. It encompasses a wide range of activities, including preventive care, diagnosis and treatment of illnesses, and rehabilitation. Healthcare is important because it plays a vital role in promoting the well-being of individuals and communities. It helps people maintain good physical and mental health, and can prevent or mitigate the effects of various medical conditions. 
+          
+          We can revolutionize healthcare by utilizing advance technologies such as machine learning and artificial intelligence.   
+          `}
+        />
+        <Block
+          heading=""
+          content={`
+          Our team consists of three young passionate innovators: Suryan, Fabin and Arjun.
+
+          
+          `}
         />
         <Block
           heading="Problem it solves"
           content={`
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi finibus ligula arcu, ut euismod magna consequat in. Suspendisse risus turpis, efficitur at vulputate ut, placerat eget dolor. Fusce non enim et nisi aliquet pellentesque id eget odio. Vivamus pulvinar tristique commodo. Nulla facilisis tempor dictum. Praesent eget volutpat neque. Vivamus auctor magna quis quam bibendum, in aliquam ante tempor.
-Sed maximus, est at tincidunt ornare, massa eros faucibus metus, eu venenatis tortor justo hendrerit lacus. Vivamus sed iaculis eros. Praesent eu rutrum felis. Integer vitae est vitae enim elementum luctus ac eu leo. Integer in sollicitudin neque. Sed rhoncus nibh erat, quis mattis lacus convallis nec. Cras dictum, tellus a vestibulum ultricies, orci leo imperdiet quam, non eleifend nibh justo a nulla
+        We know that healthcare is a very important sector. Which calls for innovations in this field. 
+        We have identified some problems that we thought we could solve during the last 24 hours. These are:
         `}
         />
-        <Block
+        <Block2
+          content={[
+            "1. Identifying symptoms of a patient",
+            "2. Encouraging better mental health among people",
+            "3. Disease diagnosis, given a patient's report",
+          ]}
+        />
+        <Block2
           heading="How it works"
-          content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi finibus ligula arcu, ut euismod magna consequat in. Suspendisse risus turpis, efficitur at vulputate ut, placerat eget dolor. Fusce non enim et nisi aliquet pellentesque id eget odio. Vivamus pulvinar tristique commodo. Nulla facilisis tempor dictum. Praesent eget volutpat neque. Vivamus auctor magna quis quam bibendum, in aliquam ante tempor
-        Sed maximus, est at tincidunt ornare, massa eros faucibus metus, eu venenatis tortor justo hendrerit lacus. Vivamus sed iaculis eros. Praesent eu rutrum felis. Integer vitae est vitae enim elementum luctus ac eu leo. Integer in sollicitudin neque. Sed rhoncus nibh erat, quis mattis lacus convallis nec. Cras dictum, tellus a vestibulum ultricies, orci leo imperdiet quam, non eleifend nibh justo a nulla.
-        "
+          content={[
+            `
+        1. Program collects data via a chatbot named "Thakkudu", which is specifically designed for this ML Model.`,
+
+            `2. We use computer vision to identify the mental heatlth of the user.`,
+
+            `3. We trained a model using traditional Machine-Learning techniques to diagnose a disease from a valid report.`,
+          ]}
         />
       </Box>
       {variant ? <NavDesk /> : <NavMob />}
@@ -48,6 +70,22 @@ function Block({ heading, content }) {
       <Text fontSize="sm" py="1.5em" maxW="100ch">
         {content}
       </Text>
+    </>
+  );
+}
+function Block2({ heading, content }) {
+  return (
+    <>
+      <Heading size="xl" pb="1rem">
+        {heading}
+      </Heading>
+      {content.map((item) => {
+        return (
+          <Text fontSize="sm" py="0.5em" maxW="100ch">
+            {item}
+          </Text>
+        );
+      })}
     </>
   );
 }

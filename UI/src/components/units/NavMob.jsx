@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { BsChatText } from "react-icons/bs";
 import { GrYoga } from "react-icons/gr";
+import { RiEmotionHappyLine } from "react-icons/ri";
 import {
   CircleMenu,
   CircleMenuItem,
@@ -20,6 +21,7 @@ import {
 } from "react-circular-menu";
 import Chat from "./Chat";
 import FormComp from "./FormComp";
+import EmoTrack from "./EmoTrack";
 export default function NavBox() {
   return (
     <Box
@@ -60,8 +62,15 @@ function Content() {
         >
           <BsChatText fontSize="1.7em" />
         </CircleMenuItem>
-        <CircleMenuItem tooltip="PoseTrack">
-          <GrYoga fontSize="1.7em" />
+        <CircleMenuItem
+          tooltip="EmotionTrack"
+          onClick={(e) => {
+            setComponent(<EmoTrack />);
+            setTitle("EmotionTrack");
+            onOpen(e);
+          }}
+        >
+          <RiEmotionHappyLine fontSize="1.7em" />
         </CircleMenuItem>
         <CircleMenuItem
           tooltip="DiagnosePro"
@@ -104,7 +113,7 @@ function Content() {
 }
 function ModalLayout({ isOpen, onClose, component, title }) {
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="3xl">
+    <Modal isOpen={isOpen} onClose={onClose} size="4xl">
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>{title}</ModalHeader>

@@ -2,7 +2,6 @@ import { Box, Heading, Text, Button, ButtonGroup } from "@chakra-ui/react";
 import { HiArrowRight, HiOutlineExternalLink } from "react-icons/hi";
 import { Link } from "react-router-dom";
 
-
 export default function Landing() {
   return (
     <Box
@@ -44,6 +43,7 @@ export default function Landing() {
           px="2em"
           py="1.8em"
           rightIcon={<HiOutlineExternalLink />}
+          onClick={() => window.open("https://github.com/", "_blank")}
         >
           GitHub
         </Button>
